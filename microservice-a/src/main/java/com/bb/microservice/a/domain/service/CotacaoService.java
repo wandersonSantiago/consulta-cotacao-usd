@@ -23,17 +23,19 @@ public class CotacaoService {
 	CotacaoBancoCentralRest rest;
 		
 	public ConsultaBancoCentralDTO<CotacaoBancoCentralDTO> buscarCotacaoPelaData(LocalDate data){		
-		return rest.buscarCotacaoPelaData("'" + data.format(FORMATADOR_MMDDYYYY) + "'", "cotacaoCompra,cotacaoVenda,dataHoraCotacao" );
+		return rest.buscarCotacaoPelaData(formatDate(data), "cotacaoCompra,cotacaoVenda,dataHoraCotacao" );
 	}
 
 	public ConsultaBancoCentralDTO<CotacaoBancoCentralDTO> buscarCotacaoPorPeriodo(LocalDate dataInicial, LocalDate dataFinal, String orderBy, Integer top){		
-		return rest.buscarCotacaoPorPeriodo(
-				"'" + dataInicial.format(FORMATADOR_MMDDYYYY) + "'",
-				"'" + dataFinal.format(FORMATADOR_MMDDYYYY) + "'", orderBy , top);
+		return rest.buscarCotacaoPorPeriodo(formatDate(dataInicial),formatDate(dataFinal), orderBy , top);
 	}
 	
 	public ConsultaBancoCentralDTO<MoedaBancoCentralDTO> buscarMoedas() {
 		return rest.buscarMoedas();
+	}
+	
+	private String formatDate(LocalDate date) {
+		return "'" + date.format(FORMATADOR_MMDDYYYY) + "'";
 	}
 
 }
