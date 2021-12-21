@@ -1,0 +1,27 @@
+version: "2.3"
+
+services:
+  service-a:
+    build:
+      context: .
+      dockerfile: microservice-a/src/main/docker/Dockerfile.native
+    image: microservice-a:native
+    mem_limit: 128m
+    ports:
+      - "9090:8080" 
+    networks:
+      - quarkus
+     
+  service-b:
+    build:
+      context: .
+      dockerfile: microservice-b/src/main/docker/Dockerfile.native
+    image: microservice-b:native
+    mem_limit: 128m
+    ports:
+      - "9091:8080" 
+    networks:
+      - quarkus
+networks:
+  quarkus:
+    driver: bridge
